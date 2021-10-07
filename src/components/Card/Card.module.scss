@@ -1,0 +1,42 @@
+.card{
+    border: 1px solid #f3f3f3;
+    padding: 20px;
+    width: 220px;
+    border-radius:40px;
+    margin: 40px 15px;
+    transition: box-shadow 0.2s ease-in-out,transform 0.2s ease-in-out;
+    
+    &:hover{
+      box-shadow: 0 20px 30px rgba($color: #000000, $alpha: 0.06);
+      transform: translateY(-5px);
+      
+    }
+    
+    .favourite{
+    position: absolute;  
+    cursor:pointer;
+    }
+    
+    h5{
+      font-weight: 500;
+      font-size: 14px;
+      margin: 14px 0;
+    }
+    span{
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #bdbdbd;
+      
+    }
+    .button{
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 32px; 
+      width: 32px;  
+      cursor: pointer;
+    }
+  }
+  
