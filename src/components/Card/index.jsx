@@ -6,6 +6,7 @@ function Card(props) {
   const onClickPlus = () => {
     props.onPlus(props);
     setIsChecked(!isChecked);
+    console.log(props);
   };
   return (
     <div className={styles.card}>

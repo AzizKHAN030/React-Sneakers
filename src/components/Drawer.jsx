@@ -29,7 +29,8 @@ function Drawer(props) {
                   src="./img/remove_btn.svg"
                   alt=""
                   onClick={() => {
-                    props.onRemove(item);
+                    props.onRemoveItem(item.id);
+                    console.log();
                   }}
                 />
               </div>
