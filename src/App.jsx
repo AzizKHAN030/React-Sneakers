@@ -1,43 +1,87 @@
 import React from "react";
 import axios from "axios";
-import Card from "./components/Card";
+import Home from "./pages/Home";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import Favourites from "./pages/Favourites";
+import { Route } from "react-router";
 
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
+  const [favourites, setFavourites] = React.useState([]);
   const [searchVal, setSearchVal] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
-  React.useEffect(() => {
-    axios
-      .get("https://615fd603f7254d001706822a.mockapi.io/items")
-      .then((response) => {
-        setItems(response.data);
-      });
+  const [isLoading, setIsLoading] = React.useState(true);
 
-    axios
-      .get("https://615fd603f7254d001706822a.mockapi.io/cart")
-      .then((response) => {
-        setCartItems(response.data);
-      });
+  React.useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+
+      const cartResponse = await axios.get(
+        "https://615fd603f7254d001706822a.mockapi.io/cart"
+      );
+      const favouriteResponse = await axios.get(
+        "https://615fd603f7254d001706822a.mockapi.io/favourites"
+      );
+      const itemsResponse = await axios.get(
+        "https://615fd603f7254d001706822a.mockapi.io/items"
+      );
+
+      setIsLoading(false);
+
+      setCartItems(cartResponse.data);
+      setFavourites(favouriteResponse.data);
+      setItems(itemsResponse.data);
+    }
+    fetchData();
   }, []);
 
   const onAddToCart = (itm) => {
-    axios.post("https://615fd603f7254d001706822a.mockapi.io/cart", itm);
-    setCartItems((prev) => [...prev, itm]);
-    console.log(cartItems);
+    if (cartItems.find((item) => Number(item.id) === Number(itm.id))) {
+      axios.delete(
+        `https://615fd603f7254d001706822a.mockapi.io/cart/${itm.id}`
+      );
+      setCartItems((prev) =>
+        prev.filter((item) => Number(item.id) !== Number(itm.id))
+      );
+    } else {
+      axios.post("https://615fd603f7254d001706822a.mockapi.io/cart", itm);
+      setCartItems((prev) => [...prev, itm]);
+    }
+  };
+  const onAddToFavourite = async (itm) => {
+    try {
+      if (favourites.find((favObj) => favObj.id === itm.id)) {
+        axios.delete(
+          `https://615fd603f7254d001706822a.mockapi.io/favourites/${itm.id}`
+        );
+      } else {
+        const { data } = await axios.post(
+          "https://615fd603f7254d001706822a.mockapi.io/favourites",
+          itm
+        );
+        setFavourites((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert("Не удалось добавить в избранные");
+    }
   };
 
-  const onRemoveItem = (id) => {
-    axios.delete(`https://615fd603f7254d001706822a.mockapi.io/cart/${id}`);
-    setCartItems((prev) => [...prev.filter((item) => item.id !== id)]);
-    console.log(id);
+  const onRemoveItem = (itm) => {
+    axios.delete(`https://615fd603f7254d001706822a.mockapi.io/cart/${itm.id}`);
+    setCartItems((prev) => [
+      ...prev.filter((item, index) => item.id !== itm.id),
+    ]);
   };
 
   const onSearchInput = (e) => {
     setSearchVal(e.target.value);
-    console.log(searchVal);
+  };
+
+  const onOpenCart = (itm) => {
+    setCartOpened(true);
+    document.querySelector("html").style = "height:100vh;overflow-y:hidden";
   };
 
   return (
@@ -47,61 +91,28 @@ function App() {
           items={cartItems}
           onClickClose={() => {
             setCartOpened(false);
+            document.querySelector("html").style = "";
           }}
           onRemoveItem={onRemoveItem}
-          // onRemove={(item) => {
-          //   setCartItems((prev) => [...prev.filter((el) => el !== item)]);
-          // }}
         />
       )}
-      <Header
-        onClickCart={() => {
-          setCartOpened(true);
-        }}
-      />
+      <Header onClickCart={onOpenCart} />
 
-      <div className="content p-40">
-        <div className="d-flex align-center justify-between">
-          <h1>{searchVal ? `Поиск по: "${searchVal}"` : "Все кроссовки"}</h1>
-          <div className="search-block">
-            <img src="./img/search_ico.svg" alt="Search" />
-            {searchVal && (
-              <img
-                className="clear"
-                src="./img/remove_btn.svg"
-                alt=""
-                onClick={() => {
-                  setSearchVal("");
-                }}
-              />
-            )}
-            <input
-              type="text"
-              onChange={onSearchInput}
-              value={searchVal}
-              placeholder="Поиск..."
-            />
-          </div>
-        </div>
-        <div className="d-flex flex-wrap">
-          {items
-            .filter((item) =>
-              item.name.toLowerCase().includes(searchVal.toLowerCase())
-            )
-            .map((item, idx) => (
-              <Card
-                {...item}
-                key={idx}
-                onPlus={(item) => {
-                  onAddToCart(item);
-                }}
-                onFavourite={() => {
-                  console.log("Вы добавили в избранные");
-                }}
-              />
-            ))}
-        </div>
-      </div>
+      <Route exact path="/">
+        <Home
+          items={items}
+          searchVal={searchVal}
+          setSearchVal={setSearchVal}
+          onSearchInput={onSearchInput}
+          onAddToCart={onAddToCart}
+          cartItems={cartItems}
+          onAddToFavourite={onAddToFavourite}
+          isLoading={isLoading}
+        />
+      </Route>
+      <Route exact path="/favourites">
+        <Favourites items={favourites} onAddToFavourite={onAddToFavourite} />
+      </Route>
     </div>
   );
 }
