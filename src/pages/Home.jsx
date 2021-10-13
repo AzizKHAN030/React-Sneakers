@@ -1,3 +1,4 @@
+import React from "react";
 import Card from "../components/Card/Card";
 
 function Home({
@@ -18,7 +19,6 @@ function Home({
     return (isLoading ? [...Array(12)] : filteredItems).map((item, idx) => (
       <Card
         {...item}
-        checked={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
         key={idx}
         loading={isLoading}
         onPlus={(item) => {

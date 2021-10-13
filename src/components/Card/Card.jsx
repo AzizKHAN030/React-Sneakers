@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
+import AppContext from "../../context";
 
 function Card(props) {
-  const [isChecked, setIsChecked] = React.useState(props.checked);
+  const { isItemAdded } = React.useContext(AppContext);
   const [isFavourite, setIsFavourite] = React.useState(props.favourited);
-
   const onClickPlus = () => {
     props.onPlus(props);
-    setIsChecked(!isChecked);
   };
   const onClickFav = () => {
     props.onFav(props);
@@ -55,7 +54,11 @@ function Card(props) {
             <img
               className={styles.plus}
               onClick={onClickPlus}
-              src={isChecked ? "./img/btn_checked.svg" : "./img/plus.svg"}
+              src={
+                isItemAdded(props.id)
+                  ? "./img/btn_checked.svg"
+                  : "./img/plus.svg"
+              }
               alt=""
             />
           </div>
