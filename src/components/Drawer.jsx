@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { useCart } from "../../hooks/useCart";
-import AppContext from "../../context";
-import Info from "../Info";
+import { useCart } from "../hooks/useCart";
+import AppContext from "../context";
+import Info from "./Info";
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 

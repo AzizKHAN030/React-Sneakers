@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Home from "./pages/Home";
 import Header from "./components/Header";
-import Drawer from "./components/Drawer/Drawer";
+import Drawer from "./components/Drawer";
 import Favourites from "./pages/Favourites";
 import Orders from "./pages/Orders";
 import { Route } from "react-router";
