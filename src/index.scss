@@ -70,6 +70,19 @@ header {
   top: 0;
   background: rgba($color: #000000, $alpha: 0.5);
   z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s ease-in-out;
+  overflow: hidden;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+
+    .drawer {
+      transform: translateX(0);
+    }
+  }
 
   .drawer {
     position: absolute;
@@ -82,7 +95,8 @@ header {
     padding: 30px;
     display: flex;
     flex-direction: column;
-
+    transform: translateX(100%);
+    transition: .3s ease-in-out;
 
 
     h2 {

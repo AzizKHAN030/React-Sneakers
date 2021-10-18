@@ -1,14 +1,16 @@
 import React from "react";
 import axios from "axios";
-
-import AppContext from "../context";
-import Info from "./Info";
+import { useCart } from "../../hooks/useCart";
+import AppContext from "../../context";
+import Info from "../Info";
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 function Drawer(props) {
   const { setCartOpened, setCartItems, cartItems } =
     React.useContext(AppContext);
+
+  const { totalPrice } = useCart();
   const [isOrderCompleted, setIsOrderCompleted] = React.useState(false);
   const [orderId, setOrderId] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -39,7 +41,7 @@ function Drawer(props) {
     setIsLoading(false);
   };
   return (
-    <div className="overlay">
+    <div className={"overlay " + props.className}>
       <div className="drawer">
         <h2 className="d-flex justify-between align-center">
           Корзина
@@ -85,12 +87,15 @@ function Drawer(props) {
                 <li>
                   <span>Итого:</span>
                   <div></div>
-                  <b>21 498 сум.</b>
+                  <b>{totalPrice} сум.</b>
                 </li>
                 <li>
                   <span>Налог 5%:</span>
                   <div></div>
-                  <b>1074 сум</b>
+                  <b>
+                    {(totalPrice / 100) * 5}
+                    сум
+                  </b>
                 </li>
               </ul>
               <button
