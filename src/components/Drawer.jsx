@@ -92,10 +92,7 @@ function Drawer(props) {
                 <li>
                   <span>Налог 5%:</span>
                   <div></div>
-                  <b>
-                    {(totalPrice / 100) * 5}
-                    сум
-                  </b>
+                  <b>{Math.round((totalPrice / 100) * 5)} сум</b>
                 </li>
               </ul>
               <button

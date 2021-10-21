@@ -1,7 +1,6 @@
 import React from "react";
 import Card from "../components/Card/Card";
 import axios from "axios";
-import styles from "../components/Card/Card.module.scss";
 
 export default function Orders() {
   const [isLoading, setIsLoading] = React.useState(true);
