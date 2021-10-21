@@ -11,6 +11,8 @@ export default function Slick() {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    autoplay: true,
+    autoplaySpeed: 2500,
   };
 
   return (
