@@ -1,4 +1,6 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap-grid.min.css";
+import { Row } from "react-bootstrap";
 import Card from "../components/Card/Card";
 import Slider from "../components/Slider/Slider";
 
@@ -33,32 +35,36 @@ function Home({
   };
 
   return (
-    <div className="content p-40">
-      <div className="d-flex align-center justify-between">
-        <h1>{searchVal ? `Поиск по: "${searchVal}"` : "Все кроссовки"}</h1>
-        <div className="search-block">
-          <img src="./img/search_ico.svg" alt="Search" />
-          {searchVal && (
-            <img
-              className="clear"
-              src="./img/remove_btn.svg"
-              alt=""
-              onClick={() => {
-                setSearchVal("");
-              }}
+    <Row className="justify-between p-20">
+      <div className="content">
+        <div className="d-flex align-center justify-between titleBlock">
+          <h1>{searchVal ? `Поиск по: "${searchVal}"` : "Все кроссовки"}</h1>
+          <div className="search-block">
+            <img src="./img/search_ico.svg" alt="Search" />
+            {searchVal && (
+              <img
+                className="clear"
+                src="./img/remove_btn.svg"
+                alt=""
+                onClick={() => {
+                  setSearchVal("");
+                }}
+              />
+            )}
+            <input
+              type="text"
+              onChange={onSearchInput}
+              value={searchVal}
+              placeholder="Поиск..."
             />
-          )}
-          <input
-            type="text"
-            onChange={onSearchInput}
-            value={searchVal}
-            placeholder="Поиск..."
-          />
+          </div>
         </div>
+        <Slider />
+        <Row className="justify-content-sm-center justify-content-md-start">
+          {renderItems()}
+        </Row>
       </div>
-      <Slider />
-      <div className="d-flex flex-wrap justify-around">{renderItems()}</div>
-    </div>
+    </Row>
   );
 }
 

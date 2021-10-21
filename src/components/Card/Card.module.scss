@@ -1,12 +1,23 @@
+.cardItem {
+  margin: 20px 0;
+}
+
 .card {
   border: 1px solid #f3f3f3;
   padding: 20px;
-  width: 220px;
+  width: 100%;
+  max-width: 220px;
   border-radius: 40px;
-  margin: 20px 15px;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 
+  @media (max-width: 575.98px) {
+    max-width: 320px;
 
+
+    span {
+      font-size: 16px;
+    }
+  }
 
   &:hover {
     box-shadow: 0 20px 30px rgba($color: #000000, $alpha: 0.06);
@@ -18,12 +29,23 @@
     position: absolute;
     cursor: pointer;
 
+    img{
+      @media (max-width: 575.98px) {
+        height: 45px;
+        width: 45px;
+      }
+      
+    }
   }
 
   h5 {
     font-weight: 500;
     font-size: 14px;
     margin: 14px 0;
+
+    @media (max-width: 575.98px) {
+      font-size: 20px;
+    }
   }
 
   span {
@@ -32,10 +54,25 @@
     text-transform: uppercase;
     color: #bdbdbd;
 
+    @media (max-width: 575.98px) {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+  }
+
+  b {
+    @media (max-width: 575.98px) {
+      font-size: 18px;
+    }
   }
 
   .plus {
     cursor: pointer;
+
+    @media (max-width: 575.98px) {
+      height: 45px;
+      width: 45px;
+    }
   }
 
 

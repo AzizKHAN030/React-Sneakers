@@ -7,6 +7,8 @@ import Favourites from "./pages/Favourites";
 import Orders from "./pages/Orders";
 import { Route } from "react-router";
 import AppContext from "./context";
+import "bootstrap/dist/css/bootstrap-grid.min.css";
+import { Container } from "react-bootstrap";
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -147,7 +149,7 @@ function App() {
         setCartItems,
       }}
     >
-      <div className="wrapper clear">
+      <Container className="wrapper clear" fluid="xxl">
         <Drawer
           items={cartItems}
           onRemoveItem={onRemoveItem}
@@ -173,7 +175,7 @@ function App() {
         <Route exact path="/orders">
           <Orders />
         </Route>
-      </div>
+      </Container>
     </AppContext.Provider>
   );
 }

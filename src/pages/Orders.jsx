@@ -1,4 +1,5 @@
 import React from "react";
+import { Row } from "react-bootstrap";
 import Card from "../components/Card/Card";
 import axios from "axios";
 
@@ -25,11 +26,11 @@ export default function Orders() {
       <div className="d-flex align-center justify-between">
         <h1>Мои покупки</h1>
       </div>
-      <div className="d-flex flex-wrap justify-around">
+      <Row className="justify-cotent-start">
         {(isLoading ? [...Array(12)] : orders).map((order, idx) => (
           <Card {...order} key={idx} loading={isLoading} />
         ))}
-      </div>
+      </Row>
     </div>
   );
 }

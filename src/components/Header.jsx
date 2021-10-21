@@ -4,7 +4,7 @@ import { useCart } from "../hooks/useCart";
 function Header(props) {
   const { totalPrice } = useCart();
   return (
-    <header className="d-flex justify-between p-40">
+    <header className="d-flex justify-between">
       <Link to="/">
         <div className="headerLeft d-flex align-center">
           <img width={40} height={40} src="./img/image4.png" alt="" />
