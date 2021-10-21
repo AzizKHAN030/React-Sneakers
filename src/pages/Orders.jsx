@@ -26,7 +26,7 @@ export default function Orders() {
       <div className="d-flex align-center justify-between">
         <h1>Мои покупки</h1>
       </div>
-      <div className="d-flex flex-wrap">
+      <div className="d-flex flex-wrap justify-around">
         {(isLoading ? [...Array(12)] : orders).map((order, idx) => (
           <Card {...order} key={idx} loading={isLoading} />
         ))}

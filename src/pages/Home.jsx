@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "../components/Card/Card";
+import Slider from "../components/Slider/Slider";
 
 function Home({
   items,
@@ -55,7 +56,8 @@ function Home({
           />
         </div>
       </div>
-      <div className="d-flex flex-wrap">{renderItems()}</div>
+      <Slider />
+      <div className="d-flex flex-wrap justify-around">{renderItems()}</div>
     </div>
   );
 }

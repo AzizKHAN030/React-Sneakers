@@ -5,7 +5,7 @@ function Header(props) {
   const { totalPrice } = useCart();
   return (
     <header className="d-flex justify-between p-40">
-      <Link to="">
+      <Link to="/">
         <div className="headerLeft d-flex align-center">
           <img width={40} height={40} src="./img/image4.png" alt="" />
           <div className="headerInfo">
@@ -19,12 +19,12 @@ function Header(props) {
           <img height={18} width={18} src="./img/cart.svg" alt="" />
           <span>{totalPrice} сум.</span>
         </li>
-        <Link to="favourites">
+        <Link to="/favourites">
           <li className="d-flex align-center justify-center cu-p">
             <img height={18} src="./img/favourite.png" alt="" />
           </li>
         </Link>
-        <Link to="orders">
+        <Link to="/orders">
           <li className="d-flex align-center">
             <img height={18} width={18} src="./img/user.svg" alt="" />
           </li>

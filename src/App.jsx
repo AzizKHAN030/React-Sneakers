@@ -73,20 +73,37 @@ function App() {
   };
   const onAddToFavourite = async (itm) => {
     try {
-      if (favourites.find((favObj) => Number(favObj.id) === Number(itm.id))) {
+      if (
+        favourites.find(
+          (favObj) => Number(favObj.parentId) === Number(itm.parentId)
+        )
+      ) {
         axios.delete(
-          `https://615fd603f7254d001706822a.mockapi.io/favourites/${itm.id}`
+          `https://615fd603f7254d001706822a.mockapi.io/favourites/${
+            favourites.find(
+              (favObj) => Number(favObj.parentId) === Number(itm.parentId)
+            ).id
+          }`
         );
 
         setFavourites((prev) =>
-          prev.filter((item) => Number(item.id) !== Number(itm.id))
+          prev.filter((item) => Number(item.parentId) !== Number(itm.parentId))
         );
       } else {
+        setFavourites((prev) => [...prev, itm]);
         const { data } = await axios.post(
           "https://615fd603f7254d001706822a.mockapi.io/favourites",
           itm
         );
-        setFavourites((prev) => [...prev, data]);
+
+        setFavourites((prev) =>
+          prev.map((item) => {
+            if (item.parentId === data.parentId) {
+              return { ...item, id: data.id };
+            }
+            return item;
+          })
+        );
       }
     } catch (error) {
       alert("Не удалось добавить в избранные");
@@ -138,7 +155,7 @@ function App() {
         />
         <Header onClickCart={onOpenCart} />
 
-        <Route exact path="">
+        <Route exact path="/">
           <Home
             items={items}
             searchVal={searchVal}
@@ -150,10 +167,10 @@ function App() {
             isLoading={isLoading}
           />
         </Route>
-        <Route exact path="favourites">
+        <Route exact path="/favourites">
           <Favourites />
         </Route>
-        <Route exact path="orders">
+        <Route exact path="/orders">
           <Orders />
         </Route>
       </div>

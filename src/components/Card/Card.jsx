@@ -4,7 +4,7 @@ import ContentLoader from "react-content-loader";
 import AppContext from "../../context";
 
 function Card(props) {
-  const { isItemAdded } = React.useContext(AppContext);
+  const { isItemAdded, favourites } = React.useContext(AppContext);
   const [isFavourite, setIsFavourite] = React.useState(props.favourited);
   const obj = { ...props, parentId: props.id };
   const onClickPlus = () => {
@@ -14,7 +14,6 @@ function Card(props) {
     props.onFav(obj);
     setIsFavourite(!isFavourite);
   };
-
   return (
     <div className={styles.card}>
       {obj.loading ? (
@@ -39,7 +38,11 @@ function Card(props) {
               <img
                 onClick={onClickFav}
                 src={
-                  isFavourite
+                  props.favourited
+                    ? "./img/heart_liked.svg"
+                    : favourites.some(
+                        (item) => Number(item.parentId) === Number(obj.parentId)
+                      )
                     ? "./img/heart_liked.svg"
                     : "./img/heart_unliked.png"
                 }

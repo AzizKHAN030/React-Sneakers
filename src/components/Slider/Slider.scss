@@ -1,0 +1,39 @@
+.mainSlider {
+
+    margin: 50px auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 30px rgba($color: #000000, $alpha: 0.06);
+    border: 1px solid #f3f3f3;
+
+    .mainSliderInner {
+        height: 300px;
+        width: 960px;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            transform: scale(0.5);
+            width: 100%;
+
+            @media screen and (max-width:1079.99px) {
+                transform: scale(.8);
+            }
+        }
+    }
+
+    .slick-list {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .slick-dots li.slick-active button:before {
+        color: #9DD558;
+    }
+
+    .slick-arrow {
+        &::before {
+            color: #9DD558;
+        }
+    }
+}

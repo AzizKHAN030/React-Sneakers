@@ -10,7 +10,7 @@ export default function Favourites() {
       <div className="d-flex align-center justify-between">
         <h1>Избранные</h1>
       </div>
-      <div className="d-flex flex-wrap">
+      <div className="d-flex flex-wrap justify-around">
         {favourites.map((item, idx) => (
           <Card
             {...item}
